@@ -1,0 +1,49 @@
+﻿Profesor, para este proyecto es necesario contar con la ultima version de .NET Core https://dotnet.microsoft.com/download (3.1),
+También es necesario tener poder ejecutar comandos desde la "Consola del administrador de paquetes"
+
+Para poder migrar la base de datos creada en este proyecto a una base de datos fisica 
+es necesario modificar el connectionStrings en el archivo appsettings.json
+Los comandos para migrar a la base de datos son:
+
+	- Add-Migration NombreDeMigracion
+	- Update-database
+
+Debido a que se está usando ORM es necesario levantar este modelo con estos comandos y cualquier cambios con este mismo proceso
+
+Una vez migrada la base de datos se generará un archivo en la carpeta Migrations el cual servirá como log de la migración
+
+
+El archivo appsettings.json vendria siendo el archivo en las cuales se manejan variables de entorno 
+de la aplicación, en versiones anteriores existía un archivo web.config que cumplía esta misma funciób
+
+La segmentación de las carpetas es la siguiente:
+
+- Context:
+	Aqui encontramos el archivo en el cual hacemos la comunicación con la base de datos y declaramos las tablas que usaremos
+
+- Controllers:
+	Por temas de convención los controllers deben tener el nombre de las entidades seguido de la palabra Controller
+	En los controllers encontraremos las funciones con cada endpoint el cual se consumirá como servicio REST
+
+- Entities:
+	Se encuentran las clases las cuales serán las entidades de la aplicación y posteriormente tablas en la base de datos
+
+- Helpers:
+	Áqui se encuentra la clase la cual cuenta con el metodo para encriptar en MD5
+
+En el archivo startup se encuentra la conexion con la base que toma desde appsettings.json
+
+## WEB SERVICE CSV EVALUACION UNIDAD 3 ##
+
+El endpoint del webservice es api/attentionts/report-csv
+los parametros de entrada son initDate y finishDate los cuales son de tipo Date
+
+para la creación de este csv es necesario contar con un procedimiento almacenado, en caso de haber migrado modelo de datos no debería dar problemas,
+en caso contrario crear procedimiento que se encuentra en carpeta /StoredProcedures
+
+La función que crea el CSV y lo devuelve como archivo se encuentra en /Controllers/AttentionsController.cs
+
+PD:
+
+El código tanto este proyecto como el proyecto Frontend se encuentran 100% en ingles ya que es una "buena practica"
+no tener un código en "Espaninglish"
